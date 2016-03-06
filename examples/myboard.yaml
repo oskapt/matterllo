@@ -1,0 +1,15 @@
+---
+trello_api_key: ce312e17dd16abcf2d3d0fe18179a2f8
+trello_api_token: c54215580eaddbf87770276af21f7ae8e2de71b21ace631ce58534ac36264a2a
+
+matter_url:
+matter_api_key:
+matter_username: 'coconut'
+matter_icon_url: 'http://3.bp.blogspot.com/-bEcLJDp_u7o/UJKPRGazv6I/AAAAAAAABGY/75z_6bbegao/s1600/coconut-oil-alzheimers-study.jpg'
+
+callback_url: 'http://87fcc44e.ngrok.io/trelloCallbacks/'
+
+boards:
+  testing:
+    subscribe: '*'
+    channel: ['coco', 'coconut']

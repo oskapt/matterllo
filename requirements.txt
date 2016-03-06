@@ -1,0 +1,4 @@
+Flask==0.10.1
+matterhook==0.1
+py-trello==0.4.3
+PyYAML==3.11
