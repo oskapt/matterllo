@@ -19,7 +19,7 @@ Usage
     $ export MATTERLLO_CONFIG_FILE='path/to/config.yaml'
 
     # Create the necessary webhook
-    $ python matterllo/scripts/init_webhook.py
+    $ python matterllo/scripts/helper.py --init
 
     # Launch the application
     $ python run.py
