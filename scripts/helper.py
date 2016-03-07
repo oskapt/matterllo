@@ -47,7 +47,8 @@ def main():
 
         client = TrelloClient(api_key=settings['trello_api_key'], token=settings['trello_api_token'])
         trello_boards = client.list_boards()
-        boards = settings.get('boards', [])
+
+        boards_name = [b['name'] for b in settings.get('boards', {}).values()]
 
         # cleanup part
         if args.cleanup or args.init:
@@ -57,7 +58,7 @@ def main():
         # update / init part
         if args.update or args.init:
             for board in trello_boards:
-                if board.name in boards:
+                if board.name in boards_name:
                     logging.info('try to create webhook board :: {}'.format(board.name))
                     result = client.create_hook(settings['callback_url'], board.id)
                     logging.info('create webhook board :: {} :: {}'.format(board.name, result))

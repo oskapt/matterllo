@@ -40,56 +40,88 @@ app = Flask(__name__)
 
 class Parser(object):
 
-    EVENT_CARD = ['createCard']
+    ACTION_CARD = ['createCard']
 
     def __init__(self):
-        self.supported_event = self.EVENT_CARD
+        self.supported_action = self.ACTION_CARD
 
-    def __call__(self, event):
-        """ Parse the event et return a pretty output.
+    def __call__(self, action):
+        """ Parse the event/action and return a pretty output.
 
         Args:
-            event (dict): the trello event.
+            action (dict): the trello action data.
         """
         try:
-            event_type = event['type']
-            if event_type not in self.supported_event:
-                raise NotImplementedError(event_type)
-            
-            event_parser = getattr(self, event_type)
-            return event_parser(event=event)
-        except NotImplementedError as e:
-            logging.info('event parsing not implemented :: {}'.format(e))
-        except Exception as e:
-            logging.error('unable to parse the event :: {} :: {}'.format(e, event))
+            action_type = action['type']
+            if action_type not in self.supported_action:
+                raise NotImplementedError(action_type)
 
-    def createCard(self, event):
-        who = event['memberCreator']['fullName']
-        board_name = event['data']['board']['name']
-        list_name = event['data']['list']['name']
-        card_name = event['data']['card']['name']
+            action_parser = getattr(self, action_type)
+            return action_parser(action=action)
+        except NotImplementedError as e:
+            logging.info('action parsing not implemented :: {}'.format(e))
+        except Exception as e:
+            logging.error('unable to parse the action :: {} :: {}'.format(e, action))
+
+    def createCard(self, action):
+        who = action['memberCreator']['fullName']
+        board_name = action['data']['board']['name']
+        list_name = action['data']['list']['name']
+        card_name = action['data']['card']['name']
         return u'{} create card {} on {}/{}'.format(who.title(), card_name, board_name, list_name)
-        
+
+
+class Send(object):
+
+    def __init__(self, board, action, payload):
+        """ Init the necessary stuff to sent the event.
+
+        Args:
+            board (str): the name board.
+            action (dict): the trello action data.
+            payload (str): the event payload.
+        """
+        self.board = board
+        self.action = action
+        self.payload = payload
+
+    def __call__(self):
+        try:
+            for key, values  in settings.get('boards', {}).items():
+                logging.info('{} :: {}'.format(self.board, values['name']))
+                if self.board != values['name']:
+                    continue
+                
+                if self.action['type'] not in values['subscribe'] and values['subscribe'] != '*':
+                    logging.info('{} :: no subscribe for this event :: {}'.format(key, self.action['type']))
+                    continue
+
+                mwh = Webhook(values['incoming_webhook_url'],
+                              values['incoming_webhook_key'])
+                mwh.username = values['username']
+                mwh.icon_url = values['icon_url']
+                mwh.send(self.payload, channel=values['channel'])
+        except Exception as e:
+            logging.error('unable to send payload :: {}'.format(e))
+
 
 @app.route('/trelloCallbacks/', methods=['GET', 'POST'])
 def callback():
     try:
         if request.method != 'POST':
-           return 'ok'
+            return 'ok'
 
         data = request.json
         action = data['action']
         board = data['model']['name']
-        
+
         # NOTE: it's ugly to init for each request the parser class
         parser = Parser()
-        event_result = parser(event=action)
-        mwh = Webhook(settings['matter_url'], settings['matter_api_key'])
-        mwh.username = settings['matter_username']
-        mwh.icon_url = settings['matter_icon_url']
-        
-        for channel in settings['boards'][board]['channel']:
-            mwh.send(event_result, channel='channel')
+        payload = parser(action=action)
+
+        if payload:
+            send = Send(board=board, action=action, payload=payload)
+            send()
     except KeyError as e:
         logging.error('missing necessary field :: {} :: {}'.format(e, data))
     except Exception as e:

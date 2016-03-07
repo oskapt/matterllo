@@ -4,10 +4,7 @@ Simple integration between Trello and Mattermost: send Trello activity notificat
 
 Is it ready ?
 =============
-WIP !!!
-
-Documentation
-=============
+Very soon: https://github.com/Lujeni/matterllo/milestones/0.1
 
 Usage
 =====
@@ -23,6 +20,14 @@ Usage
 
     # Launch the application
     $ python run.py
+
+Events
+======
+Mostly events will be supported very soon.
+
+.. code-block:: bash
+
+    createCard
 
 Requirements
 ============
