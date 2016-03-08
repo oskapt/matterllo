@@ -16,9 +16,10 @@ LOGGING = logger()
 class Parser(object):
 
     ACTION_CARD = ['createCard']
+    ACTION_LIST = ['createList']
 
     def __init__(self):
-        self.supported_action = self.ACTION_CARD
+        self.supported_action = self.ACTION_CARD + self.ACTION_LIST
 
     def __call__(self, action):
         """ Parse the event/action and return a pretty output.
@@ -46,5 +47,15 @@ class Parser(object):
             'card_link': action['data']['card']['shortLink'],
         }
         payload = u':incoming_envelope: New card "[{card_name}](https://trello.com/c/{card_link})" added to list "[{list_name}](https://trello.com/b/{board_link})"'
+
+        return payload.format(**context)
+
+    def createList(self, action):
+        context = {
+            'board_name': action['data']['board']['name'],
+            'board_link': action['data']['board']['shortLink'],
+            'list_name': action['data']['list']['name'],
+        }
+        payload = u':incoming_envelope: New list "{list_name}" added to board "[{board_name}](https://trello.com/b/{board_link})"'
 
         return payload.format(**context)

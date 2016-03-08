@@ -28,6 +28,7 @@ Mostly events will be supported very soon.
 .. code-block:: bash
 
     createCard
+    createList
 
 Requirements
 ============
