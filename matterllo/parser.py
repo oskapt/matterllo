@@ -16,7 +16,7 @@ LOGGING = logger()
 class Parser(object):
 
     ACTION_CARD = ['createCard']
-    ACTION_LIST = ['createList', 'updateList']
+    ACTION_LIST = ['createList', 'updateList', 'moveListFromBoard', 'moveListToBoard']
 
     def __init__(self):
         self.supported_action = self.ACTION_CARD + self.ACTION_LIST
@@ -42,7 +42,7 @@ class Parser(object):
     def createCard(self, action):
         context = {
             'board_link': action['data']['board']['shortLink'],
-            'list_name': action['data']['list']['name'].upper(),
+            'list_name': action['data']['list']['name'],
             'card_name': action['data']['card']['name'],
             'card_link': action['data']['card']['shortLink'],
         }
@@ -62,10 +62,10 @@ class Parser(object):
 
     def updateList(self, action):
         if action['data']['list'].get('closed', False):
-            return self.archivedList(action=action)
+            return self.archiveList(action=action)
         return self.renameList(action)
 
-    def archivedList(self, action):
+    def archiveList(self, action):
         context = {
             'board_link': action['data']['board']['shortLink'],
             'list_name': action['data']['list']['name'],
@@ -77,9 +77,31 @@ class Parser(object):
     def renameList(self, action):
         context = {
             'board_link': action['data']['board']['shortLink'],
-            'list_name': action['data']['list']['name'].upper(),
-            'list_old_name': action['data']['old']['name'].upper(),
+            'list_name': action['data']['list']['name'],
+            'list_old_name': action['data']['old']['name'],
         }
         payload = u':incoming_envelope: List renamed from "{list_old_name}" to "[{list_name}](https://trello.com/b/{board_link})"'
+
+        return payload.format(**context)
+
+    def moveListFromBoard(self, action):
+        context = {
+            'board_target_name': action['data']['boardTarget']['name'],
+            'board_name': action['data']['board']['name'],
+            'board_link': action['data']['board']['shortLink'],
+            'list_name': action['data']['list']['name'],
+        }
+        payload = u':incoming_envelope: List moved: "[{list_name}](https://trello.com/b/{board_link})" moved from "[{board_name}](https://trello.com/b/{board_link}) to board "{board_target_name}"'
+
+        return payload.format(**context)
+
+    def moveListToBoard(self, action):
+        context = {
+            'board_source_name': action['data']['boardSource']['name'],
+            'board_name': action['data']['board']['name'],
+            'board_link': action['data']['board']['shortLink'],
+            'list_name': action['data']['list']['name'],
+        }
+        payload = u':incoming_envelope: List moved: "[{list_name}](https://trello.com/b/{board_link})" moved to "[{board_name}](https://trello.com/b/{board_link}) from board "{board_source_name}"'
 
         return payload.format(**context)

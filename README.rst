@@ -31,7 +31,9 @@ Mostly actions will be supported very soon.
     createList
     updateList
         - renameList
-        - archivedList
+        - archiveList
+    moveListToBoard
+    moveListFromBoard
 
 Requirements
 ============
