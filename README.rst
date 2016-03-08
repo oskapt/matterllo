@@ -27,7 +27,13 @@ Mostly actions will be supported very soon.
 
 .. code-block:: bash
 
+    # card
     createCard
+    updateCard
+        - renameList
+        - archiveList
+
+    # list
     createList
     updateList
         - renameList

@@ -3,19 +3,21 @@
     matterllo.parser
     ~~~~~~~~~~~~~~~~
 
-    The application to parse each event.
+    The application to parse each action.
 
     :copyright: (c) 2016 by Lujeni.
     :license: BSD, see LICENSE for more details.
 """
+from matterllo.hook.card import Hook as HookCard
+from matterllo.hook.list import Hook as HookList
 from matterllo.utils import logger
 
 LOGGING = logger()
 
 
-class Parser(object):
+class Parser(HookCard, HookList):
 
-    ACTION_CARD = ['createCard']
+    ACTION_CARD = ['createCard', 'updateCard']
     ACTION_LIST = ['createList', 'updateList', 'moveListFromBoard', 'moveListToBoard']
 
     def __init__(self):
@@ -38,70 +40,3 @@ class Parser(object):
             LOGGING.info('action parsing not implemented :: {}'.format(e))
         except Exception as e:
             LOGGING.error('unable to parse the action :: {} :: {}'.format(e, action))
-
-    def createCard(self, action):
-        context = {
-            'board_link': action['data']['board']['shortLink'],
-            'list_name': action['data']['list']['name'],
-            'card_name': action['data']['card']['name'],
-            'card_link': action['data']['card']['shortLink'],
-        }
-        payload = u':incoming_envelope: New card "[{card_name}](https://trello.com/c/{card_link})" added to list "[{list_name}](https://trello.com/b/{board_link})"'
-
-        return payload.format(**context)
-
-    def createList(self, action):
-        context = {
-            'board_name': action['data']['board']['name'],
-            'board_link': action['data']['board']['shortLink'],
-            'list_name': action['data']['list']['name'],
-        }
-        payload = u':incoming_envelope: New list "{list_name}" added to board "[{board_name}](https://trello.com/b/{board_link})"'
-
-        return payload.format(**context)
-
-    def updateList(self, action):
-        if action['data']['list'].get('closed', False):
-            return self.archiveList(action=action)
-        return self.renameList(action)
-
-    def archiveList(self, action):
-        context = {
-            'board_link': action['data']['board']['shortLink'],
-            'list_name': action['data']['list']['name'],
-        }
-        payload = u':incoming_envelope: List archived: "[{list_name}](https://trello.com/b/{board_link})"'
-
-        return payload.format(**context)
-
-    def renameList(self, action):
-        context = {
-            'board_link': action['data']['board']['shortLink'],
-            'list_name': action['data']['list']['name'],
-            'list_old_name': action['data']['old']['name'],
-        }
-        payload = u':incoming_envelope: List renamed from "{list_old_name}" to "[{list_name}](https://trello.com/b/{board_link})"'
-
-        return payload.format(**context)
-
-    def moveListFromBoard(self, action):
-        context = {
-            'board_target_name': action['data']['boardTarget']['name'],
-            'board_name': action['data']['board']['name'],
-            'board_link': action['data']['board']['shortLink'],
-            'list_name': action['data']['list']['name'],
-        }
-        payload = u':incoming_envelope: List moved: "[{list_name}](https://trello.com/b/{board_link})" moved from "[{board_name}](https://trello.com/b/{board_link}) to board "{board_target_name}"'
-
-        return payload.format(**context)
-
-    def moveListToBoard(self, action):
-        context = {
-            'board_source_name': action['data']['boardSource']['name'],
-            'board_name': action['data']['board']['name'],
-            'board_link': action['data']['board']['shortLink'],
-            'list_name': action['data']['list']['name'],
-        }
-        payload = u':incoming_envelope: List moved: "[{list_name}](https://trello.com/b/{board_link})" moved to "[{board_name}](https://trello.com/b/{board_link}) from board "{board_source_name}"'
-
-        return payload.format(**context)
