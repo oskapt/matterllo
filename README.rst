@@ -29,6 +29,7 @@ Mostly actions will be supported very soon.
 
     # card
     createCard
+    commentCard
     updateCard
         - renameList
         - archiveList

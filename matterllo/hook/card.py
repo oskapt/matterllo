@@ -46,3 +46,15 @@ class Hook(object):
 
         return payload.format(**context)
 
+    def commentCard(self, action):
+        context = {
+            'board_link': action['data']['board']['shortLink'],
+            'card_name': action['data']['card']['name'],
+            'card_link': action['data']['card']['shortLink'],
+            'member_creator': action['memberCreator']['fullName'],
+            'comment': action['data']['text'],
+        }
+        payload = u''':incoming_envelope: New comment on card "[{card_name}](https://trello.com/b/{card_link})" by `{member_creator}`
+> {comment}'''
+
+        return payload.format(**context)
