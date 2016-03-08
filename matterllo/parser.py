@@ -39,10 +39,12 @@ class Parser(object):
             LOGGING.error('unable to parse the action :: {} :: {}'.format(e, action))
 
     def createCard(self, action):
-        who = action['memberCreator']['fullName']
-        board_name = action['data']['board']['name']
-        list_name = action['data']['list']['name']
-        card_name = action['data']['card']['name']
-        return u'{} create card {} on {}/{}'.format(who.title(), card_name, board_name, list_name)
+        context = {
+            'board_link': action['data']['board']['shortLink'],
+            'list_name': action['data']['list']['name'].upper(),
+            'card_name': action['data']['card']['name'],
+            'card_link': action['data']['card']['shortLink'],
+        }
+        payload = u':incoming_envelope: New card "[{card_name}](https://trello.com/c/{card_link})" added to list "[{list_name}](https://trello.com/b/{board_link})"'
 
-
+        return payload.format(**context)
