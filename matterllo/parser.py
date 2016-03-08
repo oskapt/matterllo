@@ -16,7 +16,7 @@ LOGGING = logger()
 class Parser(object):
 
     ACTION_CARD = ['createCard']
-    ACTION_LIST = ['createList']
+    ACTION_LIST = ['createList', 'updateList']
 
     def __init__(self):
         self.supported_action = self.ACTION_CARD + self.ACTION_LIST
@@ -57,5 +57,18 @@ class Parser(object):
             'list_name': action['data']['list']['name'],
         }
         payload = u':incoming_envelope: New list "{list_name}" added to board "[{board_name}](https://trello.com/b/{board_link})"'
+
+        return payload.format(**context)
+
+    def updateList(self, action):
+        if action['data']['list']['closed']:
+            return self.archivedList(action=action)
+
+    def archivedList(self, action):
+        context = {
+            'board_link': action['data']['board']['shortLink'],
+            'list_name': action['data']['list']['name'],
+        }
+        payload = u':incoming_envelope: List archived: "[{list_name}](https://trello.com/b/{board_link})"'
 
         return payload.format(**context)

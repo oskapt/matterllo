@@ -29,6 +29,7 @@ Mostly events will be supported very soon.
 
     createCard
     createList
+    archivedList
 
 Requirements
 ============
