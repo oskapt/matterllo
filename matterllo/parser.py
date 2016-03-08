@@ -61,8 +61,9 @@ class Parser(object):
         return payload.format(**context)
 
     def updateList(self, action):
-        if action['data']['list']['closed']:
+        if action['data']['list'].get('closed', False):
             return self.archivedList(action=action)
+        return self.renameList(action)
 
     def archivedList(self, action):
         context = {
@@ -70,5 +71,15 @@ class Parser(object):
             'list_name': action['data']['list']['name'],
         }
         payload = u':incoming_envelope: List archived: "[{list_name}](https://trello.com/b/{board_link})"'
+
+        return payload.format(**context)
+
+    def renameList(self, action):
+        context = {
+            'board_link': action['data']['board']['shortLink'],
+            'list_name': action['data']['list']['name'].upper(),
+            'list_old_name': action['data']['old']['name'].upper(),
+        }
+        payload = u':incoming_envelope: List renamed from "{list_old_name}" to "[{list_name}](https://trello.com/b/{board_link})"'
 
         return payload.format(**context)

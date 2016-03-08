@@ -21,15 +21,17 @@ Usage
     # Launch the application
     $ python run.py
 
-Events
-======
-Mostly events will be supported very soon.
+Supported actions
+=================
+Mostly actions will be supported very soon.
 
 .. code-block:: bash
 
     createCard
     createList
-    archivedList
+    updateList
+        - renameList
+        - archivedList
 
 Requirements
 ============
