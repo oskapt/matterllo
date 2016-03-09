@@ -3,23 +3,14 @@ trello_api_key: ce312e17dd16abcf2d3d0fe18179a2f8
 
 trello_api_token: c54215580eaddbf87770276af21f7ae8e2de71b21ace631ce58534ac36264a2a
 
-callback_url: 'http://a164072c.ngrok.io/trelloCallbacks/'
+callback_url: 'http://6ccdc210.ngrok.io/trelloCallbacks/'
 
 boards:
   testing_integration_coconut:
     name: 'testing'
     subscribe: '*'
     incoming_webhook_url: 'https://gitlab.mattermost.com'
-    incoming_webhook_key: 'isiedmqjnj8y3ginkbpzdjxg3h'
-    username: 'coconut'
-    icon_url: 'http://3.bp.blogspot.com/-bEcLJDp_u7o/UJKPRGazv6I/AAAAAAAABGY/75z_6bbegao/s1600/coconut-oil-alzheimers-study.jpg'
-    channel: 'mattermost_trello'
-
-  second_coconut:
-    name: 'testing'
-    subscribe: 'createCard'
-    incoming_webhook_url: 'https://gitlab.mattermost.com'
-    incoming_webhook_key: 'iu36su1ptpfcm8nysdbpdx7gwy'
-    username: 'coconut'
-    icon_url: 'http://3.bp.blogspot.com/-bEcLJDp_u7o/UJKPRGazv6I/AAAAAAAABGY/75z_6bbegao/s1600/coconut-oil-alzheimers-study.jpg'
-    channel: 'mattermost_trello2'
+    incoming_webhook_key: 'b5g6pyoqsjy88fa6kzn7xi1rzy'
+    username: 'Matterllo'
+    icon_url: 'http://maffrigby.com/wp-content/uploads/2015/05/trello-icon.png'
+    channel: 'trello'
