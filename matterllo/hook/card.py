@@ -25,11 +25,14 @@ class Hook(object):
 
     def updateCard(self, action):
         data = action['data']
-        if data['card'].get('closed', False):
-            return self.archiveCard(action=action)
+        if data.get('listAfter') and data.get('listBefore'):
+            return self.moveCardToList(action=action)
+
         if data['card'].get('old', False):
             return self.renameCard(action)
-        return self.unarchivedCard(action=action)
+        if data['card'].get('closed', False):
+            return self.archiveCard(action=action)
+        return self.unarchiveCard(action=action)
 
     def archiveCard(self, action):
         data = action['data']
@@ -38,6 +41,16 @@ class Hook(object):
             'card_name': data['card']['name'],
         }
         payload = u':incoming_envelope: Card archived: "[{card_name}](https://trello.com/b/{board_link})"'
+
+        return payload.format(**context)
+
+    def unarchiveCard(self, action):
+        data = action['data']
+        context = {
+            'board_link': data['board']['shortLink'],
+            'card_name': data['card']['name'],
+        }
+        payload = u':incoming_envelope: Card unarchived: "[{card_name}](https://trello.com/b/{board_link})"'
 
         return payload.format(**context)
 
@@ -63,5 +76,29 @@ class Hook(object):
         }
         payload = u''':incoming_envelope: New comment on card "[{card_name}](https://trello.com/b/{card_link})" by `{member_creator}`
 > {comment}'''
+
+        return payload.format(**context)
+
+    def moveCardFromBoard(self, action):
+        data = action['data']
+        context = {
+            'board_target_name': data['boardTarget']['name'],
+            'board_name': data['board']['name'],
+            'board_link': data['board']['shortLink'],
+            'card_name': data['card']['name'],
+        }
+        payload = u':incoming_envelope: Card moved: "[{card_name}](https://trello.com/b/{board_link})" moved from "[{board_name}](https://trello.com/b/{board_link}) to board "{board_target_name}"'
+
+        return payload.format(**context)
+
+    def moveCardToBoard(self, action):
+        data = action['data']
+        context = {
+            'board_source_name': data['boardSource']['name'],
+            'board_name': data['board']['name'],
+            'board_link': data['board']['shortLink'],
+            'card_name': data['card']['name'],
+        }
+        payload = u':incoming_envelope: Card moved: "[{card_name}](https://trello.com/b/{board_link})" moved to "[{board_name}](https://trello.com/b/{board_link}) from board "{board_source_name}"'
 
         return payload.format(**context)

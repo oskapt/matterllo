@@ -25,24 +25,7 @@ Usage
 
 Supported actions
 =================
-Mostly actions will be supported very soon.
-
-.. code-block:: bash
-
-    # card
-    createCard
-    commentCard
-    updateCard
-        - renameList
-        - archiveList
-
-    # list
-    createList
-    updateList
-        - renameList
-        - archiveList
-    moveListToBoard
-    moveListFromBoard
+Mostly actions will be supported very soon: https://github.com/Lujeni/matterllo/issues/1
 
 Requirements
 ============
