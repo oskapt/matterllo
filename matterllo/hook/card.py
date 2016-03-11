@@ -34,6 +34,11 @@ class Hook(object):
             if 'desc' in data['old']:
                 return self.renameCardDesc(action)
 
+        if 'due' in data['card']:
+            if data['card']['due']:
+                return self.updateCardDueDate(action=action)
+            return self.removeCardDueDate(action=action)
+
         if data['card'].get('closed', False):
             return self.archiveCard(action=action)
 
@@ -117,5 +122,28 @@ class Hook(object):
             'card_name': data['card']['name'],
         }
         payload = u':incoming_envelope: Card moved: "[{card_name}](https://trello.com/b/{board_link})" moved to "[{board_name}](https://trello.com/b/{board_link}) from board "{board_source_name}"'
+
+        return payload.format(**context)
+
+    def updateCardDueDate(self, action):
+        data = action['data']
+        context = {
+            'card_link': data['card']['shortLink'],
+            'card_name': data['card']['name'],
+            'card_due': data['card']['due'],
+        }
+        payload = u''':incoming_envelope: Card updated: "[{card_name}](https://trello.com/c/{card_link})"
+**Due Date**: Due {card_due}'''
+
+        return payload.format(**context)
+
+    def removeCardDueDate(self, action):
+        data = action['data']
+        context = {
+            'card_link': data['card']['shortLink'],
+            'card_name': data['card']['name'],
+        }
+        payload = u''':incoming_envelope: Card updated: "[{card_name}](https://trello.com/c/{card_link})"
+**Due Date**: Removed'''
 
         return payload.format(**context)
