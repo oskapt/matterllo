@@ -17,10 +17,8 @@ LOGGING = logger()
 
 class Parser(HookCard, HookList):
 
-    ACTION_CARD = [
-        'createCard', 'updateCard', 'commentCard', 'moveCardFromBoard',
-        'moveCardToBoard']
-    ACTION_LIST = ['createList', 'updateList', 'moveListFromBoard', 'moveListToBoard']
+    ACTION_CARD = HookCard.actions()
+    ACTION_LIST = HookList.actions()
 
     def __init__(self):
         self.supported_action = self.ACTION_CARD + self.ACTION_LIST

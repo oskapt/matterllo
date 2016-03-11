@@ -11,6 +11,12 @@
 
 class Hook(object):
 
+    @classmethod
+    def actions(cls):
+        """ Returns all supported actions.
+        """
+        return [m for m in cls.__dict__ if not '__' in m]
+
     def createList(self, action):
         data = action['data']
         context = {
