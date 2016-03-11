@@ -154,3 +154,25 @@ class Hook(object):
 **Due Date**: Removed'''
 
         return payload.format(**context)
+
+    def addMemberToCard(self, action):
+        data = action['data']
+        context = {
+            'member': action['member']['fullName'],
+            'card_link': data['card']['shortLink'],
+            'card_name': data['card']['name'],
+        }
+        payload = u':incoming_envelope: New member `{member}` add to card "[{card_name}](https://trello.com/c/{card_link})"'
+
+        return payload.format(**context)
+
+    def removeMemberFromCard(self, action):
+        data = action['data']
+        context = {
+            'member': action['member']['fullName'],
+            'card_link': data['card']['shortLink'],
+            'card_name': data['card']['name'],
+        }
+        payload = u':incoming_envelope: Member `{member}` remove to card "[{card_name}](https://trello.com/c/{card_link})"'
+
+        return payload.format(**context)
