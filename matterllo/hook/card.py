@@ -28,10 +28,15 @@ class Hook(object):
         if data.get('listAfter') and data.get('listBefore'):
             return self.moveCardToList(action=action)
 
-        if data['card'].get('old', False):
-            return self.renameCard(action)
+        if data.get('old', False):
+            if 'name' in data['old']:
+                return self.renameCard(action)
+            if 'desc' in data['old']:
+                return self.renameCardDesc(action)
+
         if data['card'].get('closed', False):
             return self.archiveCard(action=action)
+
         return self.unarchiveCard(action=action)
 
     def archiveCard(self, action):
@@ -62,6 +67,18 @@ class Hook(object):
             'card_old_name': data['old']['name'],
         }
         payload = u':incoming_envelope: Card renamed from "{card_old_name}" to "[{card_name}](https://trello.com/b/{board_link})"'
+
+        return payload.format(**context)
+
+    def renameCardDesc(self, action):
+        data = action['data']
+        context = {
+            'board_link': data['board']['shortLink'],
+            'card_name': data['card']['name'],
+            'card_desc': data['card']['desc'],
+        }
+        payload = u''':incoming_envelope: Card updated: "[{card_name}](https://trello.com/b/{board_link})"
+**Description**: {card_desc}'''
 
         return payload.format(**context)
 
