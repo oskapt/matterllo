@@ -179,7 +179,6 @@ class Hook(BaseHook):
         labels = {l.name or l.color for l in card.labels}
         label = data['label'].get('name', None) or data['label']['color']
         labels.add(label)
-
         context = {
             'label_name': label,
             'card_link': data['card']['shortLink'],
@@ -197,7 +196,6 @@ class Hook(BaseHook):
         card = self.trello_client.get_card(data['card']['id'])
         label = data['label'].get('name', None) or data['label']['color']
         labels = {l.name or l.color for l in card.labels}
-
         context = {
             'label_name': label,
             'card_link': data['card']['shortLink'],
@@ -207,4 +205,19 @@ class Hook(BaseHook):
         payload = u''':incoming_envelope: Label "{label_name}" removed from card "[{card_name}](https://trello.com/c/{card_link})"'
 **Labels**: {labels}'''
 
+        return payload.format(**context)
+
+    def addAttachmentToCard(self, action):
+        data = action['data']
+        context = {
+            'card_link': data['card']['shortLink'],
+            'card_name': data['card']['name'],
+            'attachment_name': data['attachment']['name'],
+            'attachment_url': data['attachment']['url'],
+            'attachment_preview_url': data['attachment'].get('previewUrl', ''),
+        }
+        payload = u''':incoming_envelope: New attachment added to card "[{card_name}](https://trello.com/c/{card_link})"
+[**{attachment_name}**]({attachment_url})
+{attachment_preview_url}
+'''
         return payload.format(**context)
