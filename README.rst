@@ -17,7 +17,7 @@ Usage
     # see examples/myboard.yaml
     $ export MATTERLLO_CONFIG_FILE='path/to/config.yaml'
 
-    # Create the necessary webhook
+    # Create the necessary trello webhook
     $ python matterllo/scripts/helper.py --init
 
     # Launch the application
@@ -25,7 +25,32 @@ Usage
 
 Supported actions
 =================
-Mostly actions will be supported very soon: https://github.com/Lujeni/matterllo/issues/1
+
+Boards and lists
+----------------
+- [x] List created
+- [x] List renamed
+- [x] List moved to other board
+- [x] List archived/unarchived
+
+Cards
+-----
+- [x] Card created
+- [x] Card moved
+- [x] Card renamed
+- [x] Comment added to card
+- [x] Attachment added to card
+- [x] Description changed
+- [x] Due date changed
+- [x] Label changed
+- [x] Member added to card
+- [x] Card archived/unarchived
+
+Checklists
+----------
+- [x] Checklist added to card
+- [x] Checklist Item created
+- [x] Checklist Item marked complete/incomplete
 
 Requirements
 ============
