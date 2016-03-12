@@ -12,6 +12,7 @@ from trello import TrelloClient
 
 from matterllo.hook.card import Hook as HookCard
 from matterllo.hook.list import Hook as HookList
+from matterllo.hook.checklist import Hook as HookChecklist
 from matterllo.utils import logger
 from matterllo.utils import config
 
@@ -19,13 +20,11 @@ LOGGING = logger()
 SETTINGS = config()
 
 
-class Parser(HookCard, HookList):
-
-    ACTION_CARD = HookCard.actions()
-    ACTION_LIST = HookList.actions()
+class Parser(HookCard, HookList, HookChecklist):
 
     def __init__(self):
-        self.supported_action = self.ACTION_CARD + self.ACTION_LIST
+        self.supported_action = HookCard.actions() + HookList.actions() + HookChecklist.actions()
+        print self.supported_action
         self.trello_client = TrelloClient(api_key=SETTINGS['trello_api_key'], token=SETTINGS['trello_api_token'])
 
     def __call__(self, action):
