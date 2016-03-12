@@ -47,7 +47,8 @@ def main():
             for board in trello_boards:
                 if board.name in boards_name:
                     LOGGING.info('try to create webhook board :: {}'.format(board.name))
-                    result = client.create_hook(SETTINGS['callback_url'], board.id)
+                    url = SETTINGS['callback_url'] + '/trelloCallbacks/'
+                    result = client.create_hook(url, board.id)
                     LOGGING.info('create webhook board :: {} :: {}'.format(board.name, result))
     except Exception as e:
         LOGGING.error('unable init webhook :: {}'.format(e))

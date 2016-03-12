@@ -3,7 +3,7 @@ trello_api_key: ce312e17dd16abcf2d3d0fe18179a2f8
 
 trello_api_token: c54215580eaddbf87770276af21f7ae8e2de71b21ace631ce58534ac36264a2a
 
-callback_url: 'http://6ccdc210.ngrok.io/trelloCallbacks/'
+callback_url: http://073f282a.ngrok.io
 
 boards:
   testing_integration_coconut:
