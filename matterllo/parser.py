@@ -8,11 +8,15 @@
     :copyright: (c) 2016 by Lujeni.
     :license: BSD, see LICENSE for more details.
 """
+from trello import TrelloClient
+
 from matterllo.hook.card import Hook as HookCard
 from matterllo.hook.list import Hook as HookList
 from matterllo.utils import logger
+from matterllo.utils import config
 
 LOGGING = logger()
+SETTINGS = config()
 
 
 class Parser(HookCard, HookList):
@@ -22,6 +26,7 @@ class Parser(HookCard, HookList):
 
     def __init__(self):
         self.supported_action = self.ACTION_CARD + self.ACTION_LIST
+        self.trello_client = TrelloClient(api_key=SETTINGS['trello_api_key'], token=SETTINGS['trello_api_token'])
 
     def __call__(self, action):
         """ Parse the event/action and return a pretty output.

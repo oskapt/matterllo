@@ -8,14 +8,10 @@
     :copyright: (c) 2016 by Lujeni.
     :license: BSD, see LICENSE for more details.
 """
+from matterllo.hook import BaseHook
 
-class Hook(object):
 
-    @classmethod
-    def actions(cls):
-        """ Returns all supported actions.
-        """
-        return [m for m in cls.__dict__ if not '__' in m]
+class Hook(BaseHook):
 
     def createCard(self, action):
         data = action['data']
@@ -174,5 +170,41 @@ class Hook(object):
             'card_name': data['card']['name'],
         }
         payload = u':incoming_envelope: Member `{member}` remove to card "[{card_name}](https://trello.com/c/{card_link})"'
+
+        return payload.format(**context)
+
+    def addLabelToCard(self, action):
+        data = action['data']
+        card = self.trello_client.get_card(data['card']['id'])
+        labels = {l.name or l.color for l in card.labels}
+        label = data['label'].get('name', None) or data['label']['color']
+        labels.add(label)
+
+        context = {
+            'label_name': label,
+            'card_link': data['card']['shortLink'],
+            'card_name': data['card']['name'],
+            'labels': ', '.join(labels),
+        }
+
+        payload = u''':incoming_envelope: Label "{label_name}" added to card "[{card_name}](https://trello.com/c/{card_link})"'
+**Labels**: {labels}'''
+
+        return payload.format(**context)
+
+    def removeLabelFromCard(self, action):
+        data = action['data']
+        card = self.trello_client.get_card(data['card']['id'])
+        label = data['label'].get('name', None) or data['label']['color']
+        labels = {l.name or l.color for l in card.labels}
+
+        context = {
+            'label_name': label,
+            'card_link': data['card']['shortLink'],
+            'card_name': data['card']['name'],
+            'labels': ', '.join(labels),
+        }
+        payload = u''':incoming_envelope: Label "{label_name}" removed from card "[{card_name}](https://trello.com/c/{card_link})"'
+**Labels**: {labels}'''
 
         return payload.format(**context)

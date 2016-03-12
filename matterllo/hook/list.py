@@ -8,14 +8,10 @@
     :copyright: (c) 2016 by Lujeni.
     :license: BSD, see LICENSE for more details.
 """
+from matterllo.hook import BaseHook
 
-class Hook(object):
 
-    @classmethod
-    def actions(cls):
-        """ Returns all supported actions.
-        """
-        return [m for m in cls.__dict__ if not '__' in m]
+class Hook(BaseHook):
 
     def createList(self, action):
         data = action['data']
