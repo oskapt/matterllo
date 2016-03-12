@@ -8,6 +8,11 @@ Is it ready ?
 =============
 Very soon: https://github.com/Lujeni/matterllo/milestones/0.1
 
+Documentation
+=============
+
+`Here <http://matterllo.readthedocs.org/en/issue_2/requirements.html>`_
+
 Usage
 =====
 
