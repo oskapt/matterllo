@@ -55,11 +55,12 @@ class Send(object):
                     logging.info('{} :: no subscribe for this event :: {}'.format(key, self.action['type']))
                     continue
 
-                mwh = Webhook(values['incoming_webhook_url'],
-                              values['incoming_webhook_key'])
-                mwh.username = values['username']
-                mwh.icon_url = values['icon_url']
-                mwh.send(self.payload, channel=values['channel'])
+                for k, v in values['mattermost'].items():
+                    logging.info('{} :: send event to {}'.format(k, v['channel']))
+                    mwh = Webhook(v['incoming_webhook_url'], v['incoming_webhook_key'])
+                    mwh.username = v.get('username', 'Matterllo')
+                    mwh.icon_url = v.get('icon_url', 'http://maffrigby.com/wp-content/uploads/2015/05/trello-icon.png')
+                    mwh.send(self.payload, channel=v['channel'])
         except Exception as e:
             logging.error('unable to send payload :: {}'.format(e))
 
