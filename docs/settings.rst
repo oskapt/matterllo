@@ -69,7 +69,37 @@ Board
 
 **name**: the name of the Trello board.
 
-**subscribe**: wich events you want to receive.
+Mattermost
+~~~~~~~~~~
+.. note:: We use Matterhook_ library for the mattermost part.
+
+.. note:: Matterllo support multiple channels subscription for the same trello board.
+
+.. code-block:: yaml
+
+    mattermost:
+      channel_one:
+        subscribe: '* -renameCard -archivedCard'
+        incoming_webhook_url: 'https://gitlab.mattermost.com'
+        incoming_webhook_key: 'b5g6pyoqsjy88fa6kzn7xi1rzy'
+        channel: 'trello'
+        username: 'Matterllo'
+        icon_url: 'http://maffrigby.com/wp-content/uploads/2015/05/trello-icon.png'
+
+      channel_two:
+        subscribe: 'commentCard'
+        incoming_webhook_url: 'https://gitlab.mattermost.com'
+        incoming_webhook_key: 'b5g6pyoqsjy88fa6kzn7xi1z21'
+        channel: 'trello-dev'
+        username: 'Matterllo'
+        icon_url: 'http://maffrigby.com/wp-content/uploads/2015/05/trello-icon.png'
+
+.. _Matterhook: https://github.com/numberly/matterhook
+
+**subscribe**: wich events you want to receive (default is all).
+    - `*` for all events
+    - `-` to remove event
+
  .. hlist::
    :columns: 3
 
@@ -98,31 +128,6 @@ Board
     * renameList
     * moveListFromBoard
     * moveListToBoard
-
-Mattermost
-~~~~~~~~~~
-.. note:: We use Matterhook_ library for the mattermost part.
-
-.. note:: Matterllo support multiple channels subscription for the same trello board.
-
-.. code-block:: yaml
-
-    mattermost:
-      channel_one:
-        incoming_webhook_url: 'https://gitlab.mattermost.com'
-        incoming_webhook_key: 'b5g6pyoqsjy88fa6kzn7xi1rzy'
-        channel: 'trello'
-        username: 'Matterllo'
-        icon_url: 'http://maffrigby.com/wp-content/uploads/2015/05/trello-icon.png'
-
-      channel_two:
-        incoming_webhook_url: 'https://gitlab.mattermost.com'
-        incoming_webhook_key: 'b5g6pyoqsjy88fa6kzn7xi1z21'
-        channel: 'trello-dev'
-        username: 'Matterllo'
-        icon_url: 'http://maffrigby.com/wp-content/uploads/2015/05/trello-icon.png'
-
-.. _Matterhook: https://github.com/numberly/matterhook
 
 **incoming_webhook_url**: `generate webhook`_
 

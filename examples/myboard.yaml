@@ -3,14 +3,14 @@ trello_api_key: ce312e17dd16abcf2d3d0fe18179a2f8
 
 trello_api_token: c54215580eaddbf87770276af21f7ae8e2de71b21ace631ce58534ac36264a2a
 
-callback_url: http://9d67d327.ngrok.io
+callback_url: http://e1cbdefd.ngrok.io
 
 boards:
   default_board:
     name: 'testing'
-    subscribe: '*'
     mattermost:
       channel_one:
+        subscribe: 'commentCard'
         incoming_webhook_url: 'https://gitlab.mattermost.com'
         incoming_webhook_key: 'b5g6pyoqsjy88fa6kzn7xi1rzy'
         channel: 'trello'
@@ -18,6 +18,7 @@ boards:
         icon_url: 'http://maffrigby.com/wp-content/uploads/2015/05/trello-icon.png'
 
       channel_two:
+        subscribe: 'removeLabelFromCard addLabelToCard -commentCard'
         incoming_webhook_url: 'https://gitlab.mattermost.com'
         incoming_webhook_key: 'sw9fp5otxi8f5xafgeqwgmzfzw'
         channel: 'town-square'

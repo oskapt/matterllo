@@ -24,7 +24,6 @@ class Parser(HookCard, HookList, HookChecklist):
 
     def __init__(self):
         self.supported_action = HookCard.actions() + HookList.actions() + HookChecklist.actions()
-        print self.supported_action
         self.trello_client = TrelloClient(api_key=SETTINGS['trello_api_key'], token=SETTINGS['trello_api_token'])
 
     def __call__(self, action):
