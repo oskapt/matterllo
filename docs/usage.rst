@@ -6,11 +6,11 @@ This document is meant to give a tutorial-like overview of all common tasks whil
 
 Install / Requirements
 ----------------------
-`Here <http://matterllo.readthedocs.org/en/issue_2/requirements.html>`_
+`Here <http://matterllo.readthedocs.org/en/latest/requirements.html>`_
 
 Generate your config file
 -------------------------
-`Here <http://matterllo.readthedocs.org/en/issue_2/settings.html>`_
+`Here <http://matterllo.readthedocs.org/en/latest/settings.html>`_
 
 Trello webhook
 --------------

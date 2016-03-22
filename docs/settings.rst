@@ -50,11 +50,11 @@ Generic
 
 **trello_api_key**: `generate key`_
 
-.. _generate key: http://matterllo.readthedocs.org/en/issue_2/requirements.html#api-key
+.. _generate key: http://matterllo.readthedocs.org/en/latest/requirements.html#api-key
 
 **trello_api_token**: `generate token`_
 
-.. _generate token: http://matterllo.readthedocs.org/en/issue_2/requirements.html#api-token
+.. _generate token: http://matterllo.readthedocs.org/en/latest/requirements.html#api-token
 
 **callback_url**: The callback URL used by Trello to send events.
 
