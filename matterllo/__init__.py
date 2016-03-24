@@ -16,6 +16,7 @@ from base64 import b64decode
 from matterhook import Webhook
 from flask import Flask
 from flask import request
+from slugify import slugify
 
 from matterllo.parser import Parser
 from matterllo.utils import config
@@ -49,8 +50,9 @@ class Send(object):
     def __call__(self):
         try:
             for key, values  in settings.get('boards', {}).items():
-                logging.info('{} :: {}'.format(self.board, values['name']))
-                if self.board != values['name']:
+                board_name = slugify(values['name'])
+                logging.info('{} :: {}'.format(self.board, board_name))
+                if self.board != board_name:
                     continue
                 
                 for k, v in values['mattermost'].items():
@@ -104,7 +106,7 @@ def callback():
 
         data = request.json
         action = data['action']
-        board = data['model']['name']
+        board = slugify(data['model']['name'])
 
         # NOTE: it's ugly to init for each request the parser class
         parser = Parser()

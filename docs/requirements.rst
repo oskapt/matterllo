@@ -11,9 +11,10 @@ This code has been tested under Python **2.7**.
 
     # install by the setup
     Flask==0.10.1
+    PyYAML==3.11
     matterhook==0.1
     py-trello==0.4.3
-    PyYAML==3.11
+    python-slugify==1.2.0
 
 .. code-block:: python
 

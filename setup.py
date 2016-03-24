@@ -31,9 +31,10 @@ class PyTest(TestCommand):
 
 install_requires = [
     'Flask==0.10.1',
+    'PyYAML==3.11',
     'matterhook==0.1',
     'py-trello==0.4.3',
-    'PyYAML==3.11',
+    'python-slugify==1.2.0',
 ]
 
 tests_require = []

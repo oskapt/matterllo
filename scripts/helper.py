@@ -12,6 +12,7 @@ import argparse
 import sys
 
 from trello import TrelloClient
+from slugify import slugify
 
 from matterllo.utils import config
 from matterllo.utils import logger
@@ -35,7 +36,7 @@ def main():
         client = TrelloClient(api_key=SETTINGS['trello_api_key'], token=SETTINGS['trello_api_token'])
         trello_boards = client.list_boards()
 
-        boards_name = [b['name'] for b in SETTINGS.get('boards', {}).values()]
+        boards_name = [slugify(b['name']) for b in SETTINGS.get('boards', {}).values()]
 
         # cleanup part
         if args.cleanup or args.init:
@@ -45,11 +46,14 @@ def main():
         # update / init part
         if args.update or args.init:
             for board in trello_boards:
-                if board.name in boards_name:
-                    LOGGING.info('try to create webhook board :: {}'.format(board.name))
-                    url = SETTINGS['callback_url'] + '/trelloCallbacks/'
-                    result = client.create_hook(url, board.id)
-                    LOGGING.info('create webhook board :: {} :: {}'.format(board.name, result))
+                board_name = slugify(board.name)
+                if board_name not in boards_name:
+                    continue
+
+                LOGGING.info('try to create webhook board :: {}'.format(board_name))
+                url = SETTINGS['callback_url'] + '/trelloCallbacks/'
+                result = client.create_hook(url, board.id)
+                LOGGING.info('create webhook board :: {} :: {}'.format(board_name, result))
     except Exception as e:
         LOGGING.error('unable init webhook :: {}'.format(e))
         sys.exit(1)

@@ -20,9 +20,9 @@ Settings
     boards:
       default_board:
         name: 'testing'
-        subscribe: '*'
         mattermost:
           channel_one:
+            subscribe: 'commentCard'
             incoming_webhook_url: 'https://gitlab.mattermost.com'
             incoming_webhook_key: 'b5g6pyoqsjy88fa6kzn7xi1rzy'
             channel: 'trello'
@@ -30,9 +30,10 @@ Settings
             icon_url: 'http://maffrigby.com/wp-content/uploads/2015/05/trello-icon.png'
 
           channel_two:
+            subscribe: 'removeLabelFromCard addLabelToCard -commentCard'
             incoming_webhook_url: 'https://gitlab.mattermost.com'
-            incoming_webhook_key: 'b5g6pyoqsjy88fa6kzn7xi1z21'
-            channel: 'trello-dev'
+            incoming_webhook_key: 'sw9fp5otxi8f5xafgeqwgmzfzw'
+            channel: 'town-square'
             username: 'Matterllo'
             icon_url: 'http://maffrigby.com/wp-content/uploads/2015/05/trello-icon.png'
 
