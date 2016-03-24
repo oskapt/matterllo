@@ -8,10 +8,6 @@ Simple integration between Trello and Mattermost: send Trello activity notificat
 
 .. image:: examples/matterllo.png
 
-Is it ready ?
-=============
-Very soon: https://github.com/Lujeni/matterllo/milestones/0.1
-
 Documentation
 =============
 
