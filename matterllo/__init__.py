@@ -21,6 +21,9 @@ from slugify import slugify
 from matterllo.parser import Parser
 from matterllo.utils import config
 
+import urllib3.contrib.pyopenssl
+urllib3.contrib.pyopenssl.inject_into_urllib3()
+
 logging.basicConfig(
     level=logging.INFO, format='[%(asctime)s] [%(levelname)s] %(message)s')
 
