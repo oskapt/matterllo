@@ -9,7 +9,7 @@ Settings
 --------
 
 .. code-block:: yaml
-    
+
     ----
     trello_api_key: ce312e17dd16abcf2d3d0fe18179a2f8
 
@@ -130,7 +130,7 @@ Mattermost
     * moveListFromBoard
     * moveListToBoard
 
-**incoming_webhook_url**: `generate webhook`_
+**incoming_webhook_url**: `generate webhook`_ This will probably be only your domain, since matterllo automatically appends ``/hooks/`` to it.
 
 **incoming_webhook_key**: `generate webhook`_
 
