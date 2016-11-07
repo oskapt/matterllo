@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="jumbotron">
+<h2>Boards</h2>
+    <p>Which Trello board would you like to receive notifications for?</p> 
+</div>
+
+<div class="list-group">
+  {% if trello_error %}
+    <div class="alert alert-danger">
+        <strong>{{ trello_error }}</strong>
+    </div>
+  {% endif %}
+
+  <a href="#" class="list-group-item disabled">Choose your board</a>
+    {% for board in object_list %}
+    <a href="{% url 'webhook_create' board.id %}" class="list-group-item"/>{{ board }}</a>
+    {% endfor %}
+</div>
+{% endblock %}
