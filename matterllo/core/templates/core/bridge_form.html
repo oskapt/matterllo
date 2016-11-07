@@ -1,0 +1,15 @@
+{% extends 'core/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1>Notifications </h3>
+    <p>Which Trello notifications would you like to appear in <a class="btn btn-sm btn-primary disabled" href="#" role="button">{{ webhook }}</a> from <a class="btn btn-sm btn-primary disabled" href="#" role="button">{{ board |title }}</a></p>
+  </div>
+
+  <div class="jumbotron">
+      <div class="well">
+        {% crispy form %}
+      </div>
+  </div>
+{% endblock %}

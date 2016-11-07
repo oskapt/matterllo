@@ -1,0 +1,34 @@
+{% extends 'core/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h2>Post to channel</h2>
+    <p>Start by choosing a channel where notifications will be posted through the webhook.</p> 
+  </div>
+  {% if webhooks %}
+  <div class="jumbotron">
+      <h3>Choose a webhook already configured:</h3>
+      <div class="well">
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Webhooks
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            {% for webhook in webhooks %}
+                <li><a href="{% url 'bridge_create' board.id webhook.id %}">{{ webhook }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="jumbotron">
+      <h3>Create a new Webhook</h3>
+      <div class="well">
+        {% crispy form %}
+      </div>
+  </div>
+{% endblock %}

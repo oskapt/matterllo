@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+{% block content %}
+ <div class="jumbotron">
+    <h2>Welcome to Matterllo</h2>
+    <p>Trusted by millions, Trello is the visual collaboration tool that creates a shared perspective on any project.</p>
+    <p>Matterllo allows you to stay on top of the progress of any project by sending updates to Mattermost channels when activity occurs on Trello cards, lists, and boards.</p>
+    <p>Easily customize the types of alerts you want to receive in Mattermost, in order to bring the level of perspective you need.</p>
+    <p><a class="btn btn-lg btn-primary" href="{% url 'board' %}" role="button">Start</a></p>
+  </div>
+
+{% if object_list %}
+<div class="list-group">
+  <a href="#" class="list-group-item disabled">List of current configuration:</a>
+    {% for bridge in object_list %}
+        <a href="{% url 'bridge_detail' bridge.id %}" class="list-group-item"/>
+            <b>{{ bridge.webhook.name|title }}</b> channel will receive notifications from <b>{{ bridge.board.name|title }}</b>
+        </a>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

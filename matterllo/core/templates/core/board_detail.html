@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h2>Current board: {{ board.name }}</h2>
+
+<h3>Webhooks</h3>
+{% if webhook_list %}
+<h4>Webhooks already configured:</h4>
+<ul>
+    {% for webhook in webhook_list %}
+        <a href="{% url 'webhook_detail' webhook.id %}"><li>{{ webhook }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<a href="{% url 'webhook_create' board.id %}">Create a new webhook for this board</a>
+
+
+<h3>Bridges</h3>
+{% if bridge_list %}
+<h4>Bridges already configured:</h4>
+<ul>
+    {% for bridge in bridge_list %}
+        <a href="{% url 'bridge_detail' bridge.id %}"><li>{{ bridge }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<a href="{% url 'bridge_create' board.id %}">Create a new bridge for this board</a>
+{% endblock %}

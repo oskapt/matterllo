@@ -1,0 +1,14 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div>
+    <div class="alert alert-info" role="alert">
+        <b>{{ object.webhook.name|title }}</b> Mattermost channel will receive notifications from <b>{{ object.board.name|title }}</b> Trello board when:
+    </div>
+    <div class="list-group">
+        {% for event in object.events_as_list %}
+        <a href="#" class="list-group-item"/>{{ event }}</a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

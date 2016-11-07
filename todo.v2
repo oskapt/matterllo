@@ -1,0 +1,7 @@
+- meilleure integration avec Trello (oauth)
+- gestion des webhooks via l'API de mattermost
+- synchro des boards (si une board est delete de Trello)
+- smart way to create trello hook
+- utiliser logger au lieu de print
+- Trellocabllback view heritance Hook
+- cacher le logout quand auth

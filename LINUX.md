@@ -1,0 +1,37 @@
+## How to
+To install this project using a server, you will need:
+
+1. `pip` packagem, avaiable with your package manager (e.g. apt-get install python-pip).
+
+## Deployment
+    $ pip install -r requirements_base.txt
+
+    $ python manager.py migrate
+
+    # automatically create a default superuser.
+    $ python manage.py loaddata admin
+
+    # set the necessary Trello stuff.
+    $ export TRELLO_APIKEY=<your_api_key>
+
+    $ export TRELLO_TOKEN=<your_token>
+
+    $ python manage.py runserver
+
+    # you must public expose the webserver to receive trello callbacks.
+    # - use nginx with a proxy pass
+    # - use ngrok for test (ngrok http 8000)
+    # - ect.. 
+
+## Production ready
+### Change your admin password
+1. Go to the Admin page
+2. Use the default account: `admin`/`admin`
+3. Go to the `User` part and change the password through the form
+
+### Change the secret
+    $ export SECRET=<your_secret>
+
+## Technical overview
+* `sqlite` is the default database.
+* All database objects can be directly manipulate throught the admin interface.

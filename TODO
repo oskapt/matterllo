@@ -1,6 +1,0 @@
-### core
-- custom mattermost config for each boards
-- support multiple webhook (not only the boards)
-- async
-- add a queue system
-- manage the trello oauth
