@@ -9,6 +9,7 @@ Simple integration between Trello and Mattermost: send Trello activity notificat
 
 ## Heroku based install
 * If you are not familiar with Python ecosystem, use this method.
+
 [**Here**](HEROKU.md)
 
 ### Linux web server install
