@@ -1,7 +1,7 @@
 ## What is Matterllo ?
 Simple integration between Trello and Mattermost: send Trello activity notifications to Mattermost channels
 
-![matterllo_logo](examples/matterllo.png)
+![matterllo_logo](matterllo.png)
 
 ## Quick Start
 ## Common part
