@@ -4,6 +4,8 @@ To install this project, you will need:
 1. `pip` package, available with your package manager (e.g. apt-get install python-pip).
 
 ## Deployment
+    $ cd <path_to_matterllo_repository>
+
     $ pip install -r requirements_base.txt
 
     $ python manager.py migrate
