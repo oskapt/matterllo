@@ -1,3 +1,6 @@
+## Git
+1. Clone this repository
+  
 ## Trello
 To use this project, we need a trello token to create the hook and receive each events from your board.
 
