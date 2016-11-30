@@ -1,7 +1,7 @@
 ## How to
-To install this project using a server, you will need:
+To install this project, you will need:
 
-1. `pip` packagem, avaiable with your package manager (e.g. apt-get install python-pip).
+1. `pip` package, available with your package manager (e.g. apt-get install python-pip).
 
 ## Deployment
     $ pip install -r requirements_base.txt
