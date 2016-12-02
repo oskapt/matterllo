@@ -8,7 +8,7 @@ To install this project, you will need:
 
     $ pip install -r requirements_base.txt
 
-    $ python manager.py migrate
+    $ python manage.py migrate
 
     # automatically create a default superuser.
     $ python manage.py loaddata admin
@@ -23,7 +23,7 @@ To install this project, you will need:
     # you must public expose the webserver to receive trello callbacks.
     # - use nginx with a proxy pass
     # - use ngrok for test (ngrok http 8000)
-    # - ect.. 
+    # - etc.. 
 
 ## Production ready
 ### Change your admin password
@@ -36,4 +36,4 @@ To install this project, you will need:
 
 ## Technical overview
 * `sqlite` is the default database.
-* All database objects can be directly manipulate throught the admin interface.
+* All database objects can be directly manipulated through the admin interface.
