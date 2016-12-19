@@ -10,8 +10,9 @@ class Hook(BaseHook):
             'list_name': data['list']['name'],
             'card_name': data['card']['name'],
             'card_link': data['card']['shortLink'],
+            'member_creator': action['memberCreator']['fullName'],
         }
-        payload = u':incoming_envelope: New card "[{card_name}](https://trello.com/c/{card_link})" added to list "[{list_name}](https://trello.com/b/{board_link})"'
+        payload = u':incoming_envelope: New card "[{card_name}](https://trello.com/c/{card_link})" added to list "[{list_name}](https://trello.com/b/{board_link})" ***by {member_creator}***'
 
         return payload.format(**context)
 
