@@ -14,3 +14,10 @@ Simple integration between Trello and Mattermost: send Trello activity notificat
 
 ## Linux web server install
 [**Here**](LINUX.md)
+
+## Docker install
+### old version
+[**Here**](https://hub.docker.com/r/joinville/matterllo/)
+
+### new version (django UI)
+Very soon.
