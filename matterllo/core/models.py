@@ -50,6 +50,7 @@ class Bridge(models.Model):
         ('addMemberToCard', 'addMemberToCard'),
         ('archiveCard', 'archiveCard'),
         ('commentCard', 'commentCard'),
+        ('copyCard', 'copyCard'),
         ('createCard', 'createCard'),
         ('moveCardFromBoard', 'moveCardFromBoard'),
         ('moveCardToBoard', 'moveCardToBoard'),
