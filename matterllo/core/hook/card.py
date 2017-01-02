@@ -224,6 +224,6 @@ class Hook(BaseHook):
             'member_creator': action['memberCreator']['fullName'],
         }
 
-        payload = u':incoming_envelope: Card copied: "[{card_source_name}](https://trello.com/c/{card_source_link})" to "[{card_name}](https://trello.com/c/{card_link}) ({list_name} list) ***by {member_creator}***"'
+        payload = u':incoming_envelope: Card copied: "[{card_source_name}](https://trello.com/c/{card_source_link})" to "[{card_name}](https://trello.com/c/{card_link}) ({list_name} list)" ***by {member_creator}***'
 
         return payload.format(**context)
