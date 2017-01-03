@@ -1,6 +1,7 @@
 Django==1.10.3
 django-crispy-forms==1.6.1
 django-formtools==1.0
+humanize==0.5.1
 matterhook==0.1
 oauthlib==2.0.1
 py-trello==0.7.0

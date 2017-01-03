@@ -1,3 +1,6 @@
+from dateutil import parser
+from humanize import naturaldate
+
 from matterllo.core.hook import BaseHook
 
 
@@ -124,7 +127,7 @@ class Hook(BaseHook):
         context = {
             'card_link': data['card']['shortLink'],
             'card_name': data['card']['name'],
-            'card_due': data['card']['due'],
+            'card_due': naturaldate(parser.parse(data['card']['due'])),
         }
         payload = u''':incoming_envelope: Card updated: "[{card_name}](https://trello.com/c/{card_link})"
 **Due Date**: Due {card_due}'''
