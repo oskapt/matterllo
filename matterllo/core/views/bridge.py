@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.contrib import admin
 
 from matterllo.core.models import Board, Webhook, Bridge

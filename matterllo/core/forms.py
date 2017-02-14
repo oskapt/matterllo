@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from crispy_forms.bootstrap import FormActions, Field
 from crispy_forms.helper import FormHelper, Layout
 from crispy_forms.layout import Submit
