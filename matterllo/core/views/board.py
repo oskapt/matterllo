@@ -49,7 +49,8 @@ class BoardView(ListView):
             trello_client.list_boards()
             context['trello_error'] = None
         except Exception as e:
-            context['trello_error'] = e
+            context['trello_error'] = "{} :: api_key={} :: token={}".format(e,
+                    settings.TRELLO_APIKEY, settings.TRELLO_TOKEN)
         finally:
             return context
 
