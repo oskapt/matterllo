@@ -20,6 +20,8 @@ class Board(models.Model):
     def __str__(self):
         return self.name
 
+    def __unicode__(self):
+        return u"{}".format(self.name)
 
 class Webhook(models.Model):
 
@@ -41,6 +43,9 @@ class Webhook(models.Model):
 
     def __str__(self):
         return "{} :: {}".format(self.name, self.incoming_webhook_url)
+
+    def __unicode__(self):
+        return u"{} :: {}".format(self.name, self.incoming_webhook_url)
 
 
 class Bridge(models.Model):
@@ -88,6 +93,9 @@ class Bridge(models.Model):
 
     def __str__(self):
         return '{}::{}'.format(self.board, self.webhook)
+
+    def __unicode__(self):
+        return u'{}::{}'.format(self.board, self.webhook)
 
     def events_as_list(self):
         return literal_eval(self.events)
