@@ -99,26 +99,24 @@ class Hook(BaseHook):
     def moveCardFromBoard(self, action):
         data = action['data']
         context = {
-            'board_target_name': data['boardTarget']['name'],
-            'board_name': data['board']['name'],
+            'board_target_name': data['boardTarget'].get('name') or data['board'].get('id'),
+            'board_name': data['board'].get('name'),
             'board_link': data['board']['shortLink'],
             'card_name': data['card']['name'],
-            'card_link': data['card']['shortLink'],
         }
-        payload = u':incoming_envelope: Card moved: "[{card_name}](https://trello.com/c/{card_link})" moved from "[{board_name}](https://trello.com/b/{board_link}) to board "{board_target_name}"'
+        payload = u':incoming_envelope: Card moved: "{card_name}" moved from "[{board_name}](https://trello.com/b/{board_link}) to board "{board_target_name}"'
 
         return payload.format(**context)
 
     def moveCardToBoard(self, action):
         data = action['data']
         context = {
-            'board_source_name': data['boardSource']['name'],
+            'board_source_name': data['boardSource'].get('name') or data['boardSource'].get('id'),
             'board_name': data['board']['name'],
             'board_link': data['board']['shortLink'],
             'card_name': data['card']['name'],
-            'card_link': data['card']['shortLink'],
         }
-        payload = u':incoming_envelope: Card moved: "[{card_name}](https://trello.com/c/{card_link})" moved to "[{board_name}](https://trello.com/b/{board_link}) from board "{board_source_name}"'
+        payload = u':incoming_envelope: Card moved: "{card_name}" moved to "[{board_name}](https://trello.com/b/{board_link}) from board "{board_source_name}"'
 
         return payload.format(**context)
 
