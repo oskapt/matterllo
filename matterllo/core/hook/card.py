@@ -230,3 +230,17 @@ class Hook(BaseHook):
         payload = u':incoming_envelope: Card copied: "[{card_source_name}](https://trello.com/c/{card_source_link})" to "[{card_name}](https://trello.com/c/{card_link}) ({list_name} list)" ***by {member_creator}***'
 
         return payload.format(**context)
+
+    def moveCardToList(self, action):
+        data = action['data']
+        context = {
+            'card_list_source': data['listBefore']['name'],
+            'card_list_destination': data['listAfter']['name'],
+            'card_name': data['card']['name'],
+            'card_link': data['card']['shortLink'],
+            'member_creator': action['memberCreator']['fullName'],
+        }
+
+        payload = u':incoming_envelope: Card ["{card_name}"](https://trello.com/c/{card_link}) moved from "{card_list_source}" to list "{card_list_destination}" ***by {member_creator}***'
+
+        return payload.format(**context)
