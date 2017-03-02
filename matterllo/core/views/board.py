@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from os import getenv
+
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.utils.text import slugify
@@ -33,7 +35,8 @@ class BoardView(ListView):
             for board in boards:
                 slug_board = slugify(board.name, allow_unicode=False)
                 b, created = Board.objects.get_or_create(name=slug_board)
-                url = "{}://{}/callback/{}/".format(request.scheme, request.get_host(), b.id)
+                host = getenv("MATTERLLO_HOST") or request.get_host()
+                url = "{}://{}/callback/{}/".format(request.scheme, host, b.id)
                 result = trello_client.create_hook(url, board.id)
                 print("create trello hook :: callback={} :: board={} :: result={}".format(url, slug_board, result))
             return super(BoardView, self).get(request)
