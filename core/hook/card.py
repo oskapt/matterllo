@@ -21,6 +21,20 @@ class Hook(BaseHook):
 
     def updateCard(self, action):
         data = action['data']
+
+        if 'idAttachmentCover' in data['old'] and 'idAttachmentCover' in data['card']:
+            if data['old']['idAttachmentCover']:
+                return self.removeCoverToCard(action=action)
+            return self.makeCoverToCard(action=action)
+
+        if 'dueComplete' in data['old'] and 'dueComplete' in data['card']:
+            if data['card']['dueComplete']:
+                return self.completeCardDueDate(action=action)
+            return self.uncompleteCardDueDate(action=action)
+
+        if data['card'].get('idAttachmentCover') and 'idAttachmentCover' in data['old']:
+            return self.makeCoverToCard(action=action)
+
         if data.get('listAfter') and data.get('listBefore'):
             return self.moveCardToList(action=action)
 
@@ -132,6 +146,26 @@ class Hook(BaseHook):
 
         return payload.format(**context)
 
+    def completeCardDueDate(self, action):
+        data = action['data']
+        context = {
+            'card_link': data['card']['shortLink'],
+            'card_name': data['card']['name'],
+        }
+        payload = u''':incoming_envelope: Card due date completed : "[{card_name}](https://trello.com/c/{card_link})" :white_check_mark:'''
+
+        return payload.format(**context)
+
+    def uncompleteCardDueDate(self, action):
+        data = action['data']
+        context = {
+            'card_link': data['card']['shortLink'],
+            'card_name': data['card']['name'],
+        }
+        payload = u''':incoming_envelope: Card due date uncompleted : "[{card_name}](https://trello.com/c/{card_link})" :x:'''
+
+        return payload.format(**context)
+
     def removeCardDueDate(self, action):
         data = action['data']
         context = {
@@ -212,6 +246,24 @@ class Hook(BaseHook):
 [**{attachment_name}**]({attachment_url})
 {attachment_preview_url}
 '''
+        return payload.format(**context)
+
+    def removeCoverToCard(self, action):
+        data = action['data']
+        context = {
+            'card_link': data['card']['shortLink'],
+            'card_name': data['card']['name'],
+        }
+        payload = u''':incoming_envelope: Attachment Cover removed from "[{card_name}](https://trello.com/c/{card_link})"'''
+        return payload.format(**context)
+
+    def makeCoverToCard(self, action):
+        data = action['data']
+        context = {
+            'card_link': data['card']['shortLink'],
+            'card_name': data['card']['name'],
+        }
+        payload = u''':incoming_envelope: Attachment Cover added from "[{card_name}](https://trello.com/c/{card_link})"'''
         return payload.format(**context)
 
     def copyCard(self, action):

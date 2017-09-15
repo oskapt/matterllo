@@ -26,7 +26,7 @@ class TrelloCallbacksView(View, HookCard, HookList, HookChecklist):
         return HttpResponse()
 
     def post(self, request, board_id):
-        json_data = loads(request.body)
+        json_data = loads(request.body.decode('utf-8'))
 
         action = json_data['action']
         action_type = action['type']
