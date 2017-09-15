@@ -7,8 +7,8 @@ from django.core.urlresolvers import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
-from matterllo.core.models import Board, Webhook, Bridge
-from matterllo.core.forms import BridgeCreateForm
+from core.models import Board, Webhook, Bridge
+from core.forms import BridgeCreateForm
 
 
 @method_decorator(login_required, name='dispatch')

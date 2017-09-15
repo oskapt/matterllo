@@ -1,4 +1,4 @@
-from matterllo.core.hook import BaseHook
+from core.hook import BaseHook
 
 
 class Hook(BaseHook):

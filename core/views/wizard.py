@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from formtools.wizard.views import SessionWizardView
 
-from matterllo.core.forms import BridgeCreateForm, WebhookCreateForm
+from core.forms import BridgeCreateForm, WebhookCreateForm
 
 
 @method_decorator(login_required, name='dispatch')

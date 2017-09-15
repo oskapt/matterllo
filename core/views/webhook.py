@@ -6,8 +6,8 @@ from django.utils.decorators import method_decorator
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 
-from matterllo.core.models import Webhook, Board
-from matterllo.core.forms import WebhookCreateForm
+from core.models import Webhook, Board
+from core.forms import WebhookCreateForm
 
 
 @method_decorator(login_required, name='dispatch')

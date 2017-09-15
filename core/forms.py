@@ -4,7 +4,7 @@ from crispy_forms.helper import FormHelper, Layout
 from crispy_forms.layout import Submit
 from django import forms
 
-from matterllo.core.models import Bridge, Webhook
+from core.models import Bridge, Webhook
 
 
 class BridgeCreateForm(forms.ModelForm):

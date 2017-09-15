@@ -9,10 +9,10 @@ from django.utils.text import slugify
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
-from matterllo.core.models import Bridge
-from matterllo.core.hook.card import Hook as HookCard
-from matterllo.core.hook.list import Hook as HookList
-from matterllo.core.hook.checklist import Hook as HookChecklist
+from core.models import Bridge
+from core.hook.card import Hook as HookCard
+from core.hook.list import Hook as HookList
+from core.hook.checklist import Hook as HookChecklist
 
 
 @method_decorator(csrf_exempt, name='dispatch')

@@ -7,5 +7,5 @@ urlpatterns = [
     url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/login'}, name='logout'),
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('matterllo.core.urls')),
+    url(r'^', include('core.urls')),
 ]

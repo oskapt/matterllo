@@ -10,7 +10,7 @@ from django.utils.decorators import method_decorator
 
 from trello import TrelloClient
 
-from matterllo.core.models import Board, Webhook
+from core.models import Board, Webhook
 
 
 trello_client = TrelloClient(api_key=settings.TRELLO_APIKEY, token=settings.TRELLO_TOKEN)

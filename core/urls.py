@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.conf.urls import url
 
-from matterllo.core.views import (
+from core.views import (
     BoardView, BoardDetailView, WebhookDetailView, WebhookCreateView, BridgeCreateView,
     BridgeDetailView, BridgeListView, MatterlloWizard, TrelloCallbacksView
 )
