@@ -244,7 +244,6 @@ class Hook(BaseHook):
         }
         payload = u''':incoming_envelope: New attachment added to card "[{card_name}](https://trello.com/c/{card_link})"
 [**{attachment_name}**]({attachment_url})
-{attachment_preview_url}
 '''
         return payload.format(**context)
 
