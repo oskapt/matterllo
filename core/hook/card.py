@@ -201,35 +201,27 @@ class Hook(BaseHook):
 
     def addLabelToCard(self, action):
         data = action['data']
-        card = self.trello_client.get_card(data['card']['id'])
-        labels = {l.name or l.color for l in card.labels}
+        card = data['card']
         label = data['label'].get('name', None) or data['label']['color']
-        labels.add(label)
         context = {
             'label_name': label,
             'card_link': data['card']['shortLink'],
-            'card_name': data['card']['name'],
-            'labels': ', '.join(labels),
+            'card_name': data['card']['name']
         }
-
-        payload = u''':incoming_envelope: Label "{label_name}" added to card "[{card_name}](https://trello.com/c/{card_link})"'
-**Labels**: {labels}'''
+        payload = u''':incoming_envelope: Label "{label_name}" added to card "[{card_name}](https://trello.com/c/{card_link})"'''
 
         return payload.format(**context)
 
     def removeLabelFromCard(self, action):
         data = action['data']
-        card = self.trello_client.get_card(data['card']['id'])
+        card = data['card']
         label = data['label'].get('name', None) or data['label']['color']
-        labels = {l.name or l.color for l in card.labels}
         context = {
             'label_name': label,
             'card_link': data['card']['shortLink'],
-            'card_name': data['card']['name'],
-            'labels': ', '.join(labels),
+            'card_name': data['card']['name']
         }
-        payload = u''':incoming_envelope: Label "{label_name}" removed from card "[{card_name}](https://trello.com/c/{card_link})"'
-**Labels**: {labels}'''
+        payload = u''':incoming_envelope: Label "{label_name}" removed from card "[{card_name}](https://trello.com/c/{card_link})"'''
 
         return payload.format(**context)
 
@@ -275,7 +267,6 @@ class Hook(BaseHook):
             'list_name': data['list']['name'],
             'member_creator': action['memberCreator']['fullName'],
         }
-
         payload = u':incoming_envelope: Card copied: "[{card_source_name}](https://trello.com/c/{card_source_link})" to "[{card_name}](https://trello.com/c/{card_link})" in **{list_name}** list ***by {member_creator}***'
         if context['card_name'].lower() == context['card_source_name'].lower():
             payload = u':incoming_envelope: Card copied: "[{card_source_name}](https://trello.com/c/{card_source_link})" copied in **{list_name}** list ***by {member_creator}***'
@@ -291,7 +282,6 @@ class Hook(BaseHook):
             'card_link': data['card']['shortLink'],
             'member_creator': action['memberCreator']['fullName'],
         }
-
         payload = u':incoming_envelope: Card ["{card_name}"](https://trello.com/c/{card_link}) moved from "{card_list_source}" to list "{card_list_destination}" ***by {member_creator}***'
 
         return payload.format(**context)
