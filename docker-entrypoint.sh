@@ -37,8 +37,9 @@ fi
 if [[ "$1" ]]; then
   cmd="$@"
 else
-  cmd="python manage.py migrate && python manage.py runserver ${LISTEN_PORT}:${LISTEN_ADDRESS}"
+  python manage.py migrate
+  cmd="python manage.py runserver ${LISTEN_ADDRESS}:${LISTEN_PORT}"
 fi
 
-exec "$@"
+exec ${cmd}
 

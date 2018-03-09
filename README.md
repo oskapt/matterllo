@@ -17,3 +17,6 @@ Simple integration between Trello and Mattermost: send Trello activity notificat
 
 ## Docker install
 [**Here**](DOCKER.md)
+
+## Rancher install
+[**Here**](RANCHER.md)
