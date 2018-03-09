@@ -1,0 +1,20 @@
+{
+  "folders":
+    [
+      {
+        "path": ".",
+        "name": "Main",
+        "folder_exclude_patterns": [ ],
+        "file_exclude_patterns": ["*.sublime-project", ".gitmodules", "*.retry", "*.bak" ]
+      },
+    ],
+    "settings":
+    {
+      "tab_size": 2,
+      "translate_tabs_to_spaces": true,
+      "trim_automatic_white_space": true,
+      "rulers": [80],
+      "word_wrap": true,
+      "wrap_width": 80
+    }
+}
