@@ -27,6 +27,7 @@ file_env() {
 
 file_env TRELLO_APIKEY
 file_env TRELLO_TOKEN
+file_env SECRET
 
 if [[ -z ${TRELLO_APIKEY} || -z ${TRELLO_TOKEN} ]]; then
   echo >&2 "ERROR: missing TRELLO_APIKEY or TRELLO_TOKEN"
